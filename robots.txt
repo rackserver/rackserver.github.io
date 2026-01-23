@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rackserver.github.io/sitemap.xml
