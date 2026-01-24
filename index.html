@@ -356,6 +356,56 @@
         table tbody tr:nth-child(even) {
             background-color: #fafafa;
         }
+
+        /* Sticky Header */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
+            display: none;
+            /* hidden by default */
+        }
+
+        .sticky-header.show {
+            display: block;
+        }
+
+        .sticky-inner {
+            max-width: 900px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sticky-title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .sticky-nav {
+            display: flex;
+            gap: 14px;
+        }
+
+        .sticky-nav button,
+        .sticky-nav a {
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            color: #2d3436;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .sticky-nav button:hover,
+        .sticky-nav a:hover {
+            color: #cc2366;
+        }
     </style>
     <script type="application/ld+json">
 {
@@ -536,7 +586,7 @@
   }
 }
 </script>
-<script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -564,6 +614,19 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q6R43M" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <header id="sticky-header" class="sticky-header">
+        <div class="sticky-inner">
+            <span class="sticky-title">RackServer</span>
+            <nav class="sticky-nav">
+                <button onclick="showPage('profile-page')">Home</button>
+                <button onclick="showPage('article-page')">Panduan</button>
+                <button onclick="showPage('faq-page')">FAQ</button>
+                <a href="https://api.whatsapp.com/send?phone=6281322622658" target="_blank">
+                    WhatsApp
+                </a>
+            </nav>
+        </div>
+    </header>
     <div class="main-content">
         <div id="profile-page" class="page active">
             <div class="card">
@@ -1079,6 +1142,25 @@
             });
         });
     </script>
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            const header = document.getElementById('sticky-header');
+
+            // Show ONLY on Panduan & FAQ
+            if (pageId === 'article-page' || pageId === 'faq-page') {
+                header.classList.add('show');
+            } else {
+                header.classList.remove('show');
+            }
+
+            // Scroll to top when switching pages
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
 </body>
 
 </html>
